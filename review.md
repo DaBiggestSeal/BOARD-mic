@@ -16,7 +16,7 @@ Only one KiCad project exists in this folder. `main` has its own `review.md`, wh
 
 | # | Severity | Issue | Status |
 |---|---|---|---|
-| 1 | 🟢 Minor | Part-fit checks for school parts, Y1 footprint, silkscreen, library warnings | ❌ Open |
+| 1 | 🟢 Minor | Part-fit checks for school parts, silkscreen, library warnings | ❌ Open |
 
 ---
 
@@ -58,7 +58,11 @@ Other routing changes made to fit these:
 - **School parts vs. footprints:**
   - **Resistors:** they mount standing, with 2.54 mm hole spacing. Check that 1/4 W bodies don't touch their neighbours around R14/R15/R16.
   - **10 µF caps (C4, C9, C18):** if you use electrolytics instead of ceramics, the footprint shows no "+". Fit + to C4 pad 2 (VCCCI), C9 pad 1 (VCOM) and C18 pad 1 (MIC_BIAS), and use 5 mm cans with 2.5 mm lead spacing.
-  - **Y1:** a school HC-49 crystal won't fit the C26-LF footprint. Choose the footprint to match the crystal you'll use; for CL = 18 pF, use 27 pF for C13/C14.
+  - **Y1:** ⏸️ accepted. The crystal's legs will be bent to fit the C26-LF footprint, because no crystal with the right specs and footprint could be found. For CL = 18 pF, 27 pF is the ideal value for C13/C14; 22 pF still works.
+- **Capacitor parts (if ordered rather than borrowed):**
+  - **C4, C9, C18 (10 µF):** C1620730, Murata RDEC71H106K3S1H03A, 10 µF 50 V X7S. It's a ceramic, so it isn't polarized, it uses 2.5 mm lead spacing, and it fits the C_Disc footprint. No electrolytic is needed.
+  - **C11, C12 (470 µF):** C1579341, Nichicon UHE1A471MPD1TD, 10 V, 8 mm can, 3.5 mm lead spacing. These are the only polarized caps; + goes to the codec side.
+  - **C19 (1 µF):** C1620326, the same Murata disc as C5–C8. Low stock (34) at the time of checking.
 - **Silkscreen:** a few new reference labels sit close to or touch other labels or pads (a few more `silk_overlap`/`silk_over_copper` notes than before). Your project ignores silkscreen DRC, but nudge them in KiCad if you want the printed labels clean.
 - **MK2:** the capsule is mounted off-board on wires ✅. Use a short **shielded** cable (signal on the core, GND on the shield), because the capsule signal is weak and high-impedance and picks up hum easily.
 - **RV1 taper:** with a linear pot, most of the gain change happens in the first part of the rotation. That's acceptable. A reverse-log (C) taper would give more even control.
@@ -101,5 +105,4 @@ Other routing changes made to fit these:
 
 ## Suggested fix order
 
-1. **Y1:** match the footprint to the crystal you'll actually use.
-2. **Silkscreen (optional):** tidy the reference labels around the new parts.
+1. **Silkscreen (optional):** tidy the reference labels around the new parts.
