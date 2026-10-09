@@ -840,7 +840,7 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/MIC_BIAS")
+			(net "Net-(C18-Pad1)")
 			(uuid "75083e0a-ee16-48c4-8d3e-0d4b6565a2fd")
 		)
 		(pad "2" thru_hole circle
@@ -874,7 +874,7 @@
 		(property "Reference" "C13"
 			(at 5 -0.75 0)
 			(layer "F.SilkS")
-			(uuid "3416211c-74c5-4400-aefc-5f65af796bdc")
+			(uuid "02a2ceaa-a7be-45a4-8ea5-00a1de2d5a69")
 			(effects
 				(font
 					(size 1 1)
@@ -885,7 +885,7 @@
 		(property "Value" "22p"
 			(at 5 0.5 0)
 			(layer "F.Fab")
-			(uuid "f0e64582-c823-4078-9c0d-ebbb1990ab56")
+			(uuid "47e0d873-1f3b-4b98-9f14-7de8fb3b02f4")
 			(effects
 				(font
 					(size 1 1)
@@ -897,7 +897,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8755166a-3c88-419a-b293-97faf2e3b23c")
+			(uuid "9a29b53a-4ffd-48ad-bbc5-c5da12ba99b3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -908,7 +908,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "3707185f-b490-4643-a2b0-f4accfbfceac")
+			(uuid "0b044f6a-09b9-4fd5-b870-453443781be8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1133,19 +1133,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7d94d2f1-99f9-4528-94c7-008d1732accb")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C11337"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0c6daa1f-477c-402e-b0b9-28aa28ae49e0")
 			(effects
 				(font
 					(size 1 1)
@@ -5621,7 +5608,7 @@
 			(drill 0.7)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/MIC_BIAS")
+			(net "Net-(C18-Pad1)")
 			(pintype "passive")
 			(uuid "0a5dd7bf-9514-4f62-9a8f-9512e59ad0d2")
 		)
@@ -10850,7 +10837,7 @@
 			(drill 0.7)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/MIC_BIAS")
+			(net "Net-(C18-Pad1)")
 			(uuid "cb421324-4716-40ca-a396-01a923fddbf9")
 		)
 		(embedded_fonts no)
@@ -14833,7 +14820,7 @@
 		(end 109.22 90.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "13292219-6433-43b6-b5ee-9c026368cbdd")
 	)
 	(segment
@@ -14841,7 +14828,7 @@
 		(end 109.22 89.28)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "43e12eab-4cde-409c-8674-11c0e0813681")
 	)
 	(segment
@@ -14849,7 +14836,7 @@
 		(end 110.209949 90.25)
 		(width 0.5)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "52f50d50-b1e2-44ca-af2e-bc5316ff94f0")
 	)
 	(segment
@@ -14857,7 +14844,7 @@
 		(end 113 93.040051)
 		(width 0.5)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "6e04a84a-2f14-47db-be0f-4488dbefde14")
 	)
 	(segment
@@ -14865,7 +14852,7 @@
 		(end 109.22 90.25)
 		(width 0.5)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "89a6527c-ba98-4adf-b3f3-2db161e34b79")
 	)
 	(segment
@@ -14873,7 +14860,7 @@
 		(end 109.75 88.75)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "cf2251e4-f0ec-42bd-b3c3-b47998f9fcc0")
 	)
 	(via
@@ -14881,7 +14868,7 @@
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "c25359de-a962-4a17-8edf-0d36af165a0a")
 	)
 	(segment
@@ -14889,7 +14876,7 @@
 		(end 113 100.75)
 		(width 0.5)
 		(layer "B.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "91bae08e-8cec-4227-a085-b687e5010b35")
 	)
 	(segment
@@ -14897,7 +14884,7 @@
 		(end 107.75 106)
 		(width 0.5)
 		(layer "B.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "a0714f97-2ed0-4ca2-8815-1600488bc7f5")
 	)
 	(segment
@@ -14905,7 +14892,7 @@
 		(end 113 94)
 		(width 0.5)
 		(layer "B.Cu")
-		(net "/MIC_BIAS")
+		(net "Net-(C18-Pad1)")
 		(uuid "ef429fd9-4fe0-4d88-973a-26311940f999")
 	)
 	(segment

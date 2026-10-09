@@ -30,7 +30,7 @@ The bias filter, codec input resistor, VBUS filter and USB ESD protection are pl
 | **R16** 2.2 Ω | At (81.0, 106.0–108.5) mm, next to J2's +5V entry | Feeds a dedicated filtered-VBUS track. That track runs on the bottom layer beside R12, goes to the top layer through a via above C16, and ends at C19 and U3 pin 3. |
 | **C19** 1 µF | At (93.33–95.83, 102.35) mm, just below U3 | Connected to U3 pin 3's via. VCCCI (U3 pin 10 → C4) now runs on the bottom layer between C19's pads. |
 | **R15** 1 kΩ | At (85.0, 83.5–86.0) mm, above C9 | C10 → R15 runs on the top layer between C9's pads. R15 → VINL runs on the top layer past C17 to a via onto U3 pins 12/13. |
-| **R14** 1 kΩ | At (98.5–101.0, 106.0) mm, inline in the +3.3 V track | Everything after R14 (the long track up to R1) is now `MIC_BIAS`. |
+| **R14** 1 kΩ | At (98.5–101.0, 106.0) mm, inline in the +3.3 V track | Everything after R14 (the long track up to R1) is now the mic-bias node (`Net-(C18-Pad1)`). |
 | **C18** 10 µF | **C3's old spot**, next to R1 | Changed from 47 µF electrolytic to a 10 µF ceramic disc. Filter corner ≈ 16 Hz, still below the audio band. |
 | **C3** 1 µF | **Moved next to U4** (the LDO), fed from U4's output via | It was ~25 mm from the LDO before. An LDO output cap belongs at the LDO, so this is an improvement. |
 
@@ -49,7 +49,7 @@ Other routing changes made to fit these:
   | U1 TS5A3159ADBVR | C128405 | ✅ correct, in stock |
   | U2 INA826AID | C2868853 | ✅ correct, in stock |
   | U3 PCM2902C | — | ✅ no code (sourced elsewhere) |
-  | U4 TLV70033 | C11337 | ✅ correct (TLV70033DDCR, fits the SOT-23-5 footprint) |
+  | U4 TLV70033 (LDO) | — | ✅ no code (sourced elsewhere) |
   | U5 USBLC6-2SC6 | C7519 | ✅ correct, in stock |
   | J1 PJ-3920-3A | C707259 | ✅ correct |
   | J2 GT-USB-7051A | C2843970 | ✅ correct, in stock |
@@ -91,7 +91,7 @@ Other routing changes made to fit these:
 - **R3 / D1**: R3 = 1 kΩ gives about 3 mA through the LED. ✅
 - **TLV70033 (U4)**: pinout IN=1, GND=2, EN=3, NC=4, OUT=5. EN is tied to VIN. Input and output caps are 1 µF each.
 - **AOM-5024L-HD-R (MK2)**: rated 3 V (2–10 V range). C1 = 1 µF into 10 kΩ gives a 16 Hz corner.
-- **Mic-bias filter**: +3.3 V → R14 1 kΩ → `MIC_BIAS` (C18 10 µF to GND) → R1 1.2 kΩ → MK2. The total of about 2.2 kΩ matches the manufacturer's load resistor, so the operating point is unchanged. R14/C18 low-pass at about 16 Hz, which removes LDO noise from the audio band.
+- **Mic-bias filter**: +3.3 V → R14 1 kΩ → the mic-bias node (`Net-(C18-Pad1)`) (C18 10 µF to GND) → R1 1.2 kΩ → MK2. The total of about 2.2 kΩ matches the manufacturer's load resistor, so the operating point is unchanged. R14/C18 low-pass at about 16 Hz, which removes LDO noise from the audio band.
 - **Switch pop fix**: U1 pin 3 (NC) is tied to GND, so C1 stays charged while muted.
 - **USB-C (J2)**:
   - CC1 and CC2 each have their own 5.1 kΩ to GND.
