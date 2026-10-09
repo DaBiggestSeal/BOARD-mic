@@ -38,6 +38,7 @@ Other routing changes made to fit these:
 - **+3.3 V under U3** (U3 pins 8/9 → U4/R14) now runs straight down between C16's pads instead of diagonally.
 - **The +5V track that used to pass through U3 pin 3's via** now goes around it to U2 pin 8. That via now carries only the filtered VBUS.
 - **C16 moved 0.1 mm left** to make room for C19.
+- **Ground stitching vias** (0.6 mm / 0.3 mm drill) tie the top and bottom ground pours together everywhere. There are 86 of mine: 38 on a ~3 mm grid across the board, plus 48 on a 2 mm grid under the pot (RV1), close around the headphone jack (J1) and around the USB +5V entry / C2 / U4 / R16. With your own 22 ground vias between U3 and J1, that makes 108. This includes the small patches that were previously joined only through one pad (around C16, R12/J2's shell and U5).
 - Your own track tidy-ups around U5/C17 (21:27 save) are kept.
 
 ## 🟢 1. Minor items
