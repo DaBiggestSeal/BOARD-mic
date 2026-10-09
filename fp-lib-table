@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "mic")(type "KiCad")(uri "${KIPRJMOD}/mic.pretty")(options "")(descr "Project footprints for BOARD-mic"))
+)

@@ -1,0 +1,124 @@
+(footprint "Jack_3.5mm_KoreanHropartsElec_PJ-3920-3A_Vertical"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "TRS 3.5mm stereo jack, vertical, panel mount M6x0.5, Korean Hroparts PJ-3920-3A (LCSC C707259), slotted holes per datasheet PCB layout. Pads: S=sleeve (datasheet pin 1), T=tip (pin 2), R=ring (pin 3)")
+	(tags "TRS 3.5mm stereo jack vertical PJ-3920 Hroparts")
+	(property "Reference" "REF**"
+		(at 0 -5.5 0)
+		(layer "F.SilkS")
+		(uuid "91361ba4-d172-47eb-ac94-c9910345de76")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Jack_3.5mm_KoreanHropartsElec_PJ-3920-3A_Vertical"
+		(at 0 5.5 0)
+		(layer "F.Fab")
+		(uuid "72be5215-24d3-4163-98b0-2f074022ddcc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.lcsc.com/datasheet/C707259.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3e2ebadf-688b-48c9-bc58-a7ef4997c647")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bdafcd85-8c28-424c-add5-65d5f398cef4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center 0 0)
+		(end 4.0 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "31a749c6-bb87-4d31-bcef-f2314bcdbb04")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 3.0 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "df581a89-82e9-4633-9e97-72566fab3e5f")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 4.12 0)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "64d4fb18-0250-4d6c-9b00-ce79c15bfad3")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 4.5 0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "9296b3c6-8da9-406a-9ad3-58f5758625ce")
+	)
+	(pad "S" thru_hole oval
+		(at 0 -2.5)
+		(size 3.6 1.6)
+		(drill oval 2.8 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "dd12e417-5a4b-41c7-8d3d-f18eeede6338")
+	)
+	(pad "T" thru_hole oval
+		(at -2.5 0)
+		(size 1.6 3.4)
+		(drill oval 0.8 2.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "ee0709fe-d891-4e16-964e-2700142336f4")
+	)
+	(pad "R" thru_hole oval
+		(at 2.5 0)
+		(size 1.6 3.4)
+		(drill oval 0.8 2.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "17bc34ab-ac07-4c13-8e6e-0c82caedb33e")
+	)
+)
