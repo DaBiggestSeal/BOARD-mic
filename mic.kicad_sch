@@ -7540,6 +7540,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C2843970"
+			(at 135.89 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "SH"
 			(uuid "47d4b7f1-719e-432e-8300-f685146c08bf")
 		)
@@ -7900,7 +7911,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C11337"
+		(property "LCSC" "alr"
 			(at 111.76 49.53 0)
 			(hide yes)
 			(show_name no)
