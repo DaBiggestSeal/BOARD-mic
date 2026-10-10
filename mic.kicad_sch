@@ -281,7 +281,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Footprint" "AOM-5024L-HD-F-R:MIC_AOM-5024L-HD-F-R"
+			(property "Footprint" "mic:MIC_AOM-5024L-HD-F-R"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3134,7 +3134,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Footprint" "INA826AID:SOIC127P599X175-8N"
+			(property "Footprint" "mic:SOIC127P599X175-8N"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5423,6 +5423,12 @@
 		(uuid "412d5b93-9b25-4c63-bd69-66ad445c0754")
 	)
 	(junction
+		(at 104.14 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4178ddb7-de47-469f-b0e9-2e677d152731")
+	)
+	(junction
 		(at 111.76 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5457,6 +5463,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "56ac8451-63a9-4cea-9ea7-7b4b2e1e2aa2")
+	)
+	(junction
+		(at 160.02 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5a02a98a-e485-44c5-b6e6-4a93165704f1")
 	)
 	(junction
 		(at 229.87 40.64)
@@ -5549,6 +5561,12 @@
 		(uuid "aa0657b0-b864-43b7-b720-48f89d65ab23")
 	)
 	(junction
+		(at 227.33 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bf7687e3-1147-40c3-b100-9afc8f26cf51")
+	)
+	(junction
 		(at 223.52 114.3)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5639,6 +5657,16 @@
 	(no_connect
 		(at 223.52 63.5)
 		(uuid "c2e24c71-553a-4de8-88d9-3e7399203d03")
+	)
+	(wire
+		(pts
+			(xy 218.44 38.1) (xy 227.33 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03dfa1b2-c7c9-4e93-b56f-2502b32d0c48")
 	)
 	(wire
 		(pts
@@ -5752,13 +5780,23 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 88.9) (xy 158.75 88.9)
+			(xy 187.96 88.9) (xy 160.02 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "25665366-daac-4f04-aa98-d0e571229bb6")
+	)
+	(wire
+		(pts
+			(xy 227.33 38.1) (xy 227.33 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a09b2b0-247d-438d-9951-d768c5a4882e")
 	)
 	(wire
 		(pts
@@ -5819,6 +5857,16 @@
 			(type default)
 		)
 		(uuid "3b032cea-a605-4caf-aeea-db60721120f0")
+	)
+	(wire
+		(pts
+			(xy 160.02 38.1) (xy 160.02 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41097767-210c-4ac4-91a4-5960fe6664c9")
 	)
 	(wire
 		(pts
@@ -6122,7 +6170,7 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 58.42) (xy 260.35 58.42)
+			(xy 223.52 58.42) (xy 227.33 58.42)
 		)
 		(stroke
 			(width 0)
@@ -6189,6 +6237,16 @@
 			(type default)
 		)
 		(uuid "baf21286-9ba0-405c-9acb-213819e4d4b2")
+	)
+	(wire
+		(pts
+			(xy 210.82 38.1) (xy 160.02 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc486db8-6627-4d46-a181-46c035b22ac0")
 	)
 	(wire
 		(pts
@@ -6349,6 +6407,26 @@
 			(type default)
 		)
 		(uuid "e6839a40-dd1c-40f2-8fc8-1bf64866f506")
+	)
+	(wire
+		(pts
+			(xy 227.33 58.42) (xy 260.35 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb4d6004-fb96-42c5-a8d3-ea3f92ba92a8")
+	)
+	(wire
+		(pts
+			(xy 160.02 88.9) (xy 158.75 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb87f174-1622-4640-9d86-4d77e48093cd")
 	)
 	(wire
 		(pts
@@ -6703,7 +6781,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 154.94 80.518 90)
 			(hide yes)
 			(show_name no)
@@ -6727,6 +6805,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 154.94 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22548"
+			(at 154.94 80.518 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6942,7 +7031,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x10"
 			(at 267.6652 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -6975,7 +7064,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1579341"
+		(property "LCSC" "C2858857"
 			(at 266.7 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -7034,7 +7123,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 156.972 96.52 90)
 			(hide yes)
 			(show_name no)
@@ -7058,6 +7147,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 158.75 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23345"
+			(at 156.972 96.52 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7116,7 +7216,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.4752 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -7149,7 +7249,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620210"
+		(property "LCSC" "C149620"
 			(at 143.51 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -7208,7 +7308,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 94.742 85.09 90)
 			(hide yes)
 			(show_name no)
@@ -7232,6 +7332,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 96.52 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C98220"
+			(at 94.742 85.09 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7399,7 +7510,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 112.7252 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -7423,6 +7534,17 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 111.76 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19666"
+			(at 112.7252 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7559,7 +7681,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 163.322 96.52 90)
 			(hide yes)
 			(show_name no)
@@ -7583,6 +7705,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 165.1 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23345"
+			(at 163.322 96.52 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7640,7 +7773,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 253.6952 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -7673,7 +7806,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 252.73 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -7809,7 +7942,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 45.72 80.518 90)
 			(hide yes)
 			(show_name no)
@@ -7833,6 +7966,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 45.72 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22765"
+			(at 45.72 80.518 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8357,7 +8501,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 105.7148 45.72 0)
 			(hide yes)
 			(show_name no)
@@ -8390,7 +8534,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 106.68 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -8526,7 +8670,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 103.632 72.39 90)
 			(hide yes)
 			(show_name no)
@@ -8550,6 +8694,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 105.41 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C98220"
+			(at 103.632 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8686,7 +8841,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 77.47 93.218 90)
 			(hide yes)
 			(show_name no)
@@ -8710,6 +8865,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 77.47 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22548"
+			(at 77.47 93.218 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8767,7 +8933,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 246.0752 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -8800,7 +8966,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 245.11 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -8936,7 +9102,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 247.65 80.3148 0)
 			(hide yes)
 			(show_name no)
@@ -8969,7 +9135,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C2170230"
+		(property "LCSC" "C1653"
 			(at 243.84 81.28 90)
 			(hide yes)
 			(show_name no)
@@ -9027,7 +9193,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 71.882 125.73 90)
 			(hide yes)
 			(show_name no)
@@ -9060,6 +9226,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25803"
+			(at 71.882 125.73 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "91f99812-73eb-4b20-befb-3e83414e3c30")
 		)
@@ -9070,6 +9247,84 @@
 			(project "mic"
 				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
 					(reference "R18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:Earth")
+		(at 104.14 142.24 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "410a1f4e-fd31-4825-9dc5-8ce8a7b6576b")
+		(property "Reference" "#PWR046"
+			(at 104.14 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Earth"
+			(at 104.14 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"Earth\""
+			(at 104.14 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "26d38acc-5cbf-4fcd-831e-0249c224e133")
+		)
+		(instances
+			(project "mic"
+				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -9109,7 +9364,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 78.74 117.8052 0)
 			(hide yes)
 			(show_name no)
@@ -9142,7 +9397,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620210"
+		(property "LCSC" "C149620"
 			(at 82.55 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -9359,7 +9614,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 130.5052 53.34 0)
 			(hide yes)
 			(show_name no)
@@ -9392,7 +9647,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 129.54 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -9529,7 +9784,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_G-Switch_GT-USB-7051x"
+		(property "Footprint" "mic:USB_C_Receptacle_G-Switch_GT-USB-7051x_NoA8"
 			(at 146.05 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -9665,7 +9920,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 175.26 98.298 90)
 			(hide yes)
 			(show_name no)
@@ -9689,6 +9944,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 175.26 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C112307"
+			(at 175.26 98.298 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9745,7 +10011,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 26.67 80.518 90)
 			(hide yes)
 			(show_name no)
@@ -9769,6 +10035,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 26.67 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22548"
+			(at 26.67 80.518 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10093,6 +10370,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C11337"
+			(at 118.11 40.005 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "dc65086b-e47b-4294-b914-d2d541935def")
 		)
@@ -10226,7 +10514,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 110.998 90.17 90)
 			(hide yes)
 			(show_name no)
@@ -10250,6 +10538,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 109.22 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 110.998 90.17 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10540,7 +10839,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 247.65 87.9348 0)
 			(hide yes)
 			(show_name no)
@@ -10573,7 +10872,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C2170230"
+		(property "LCSC" "C1653"
 			(at 243.84 88.9 90)
 			(hide yes)
 			(show_name no)
@@ -10630,7 +10929,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 101.6 77.978 90)
 			(hide yes)
 			(show_name no)
@@ -10663,6 +10962,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C98220"
+			(at 101.6 77.978 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "bbaec723-9e6c-4057-a8ec-8237fe60c07b")
 		)
@@ -10673,6 +10983,97 @@
 			(project "mic"
 				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
 					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 214.63 38.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "84b23cf1-14da-40dd-a414-7f4faffcebb1")
+		(property "Reference" "R9"
+			(at 214.63 31.75 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k5R"
+			(at 214.63 34.29 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 214.63 39.878 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 214.63 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 214.63 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22843"
+			(at 214.63 38.1 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "48a5f964-8872-46b9-8b6e-3cd857abb34b")
+		)
+		(pin "2"
+			(uuid "f0bbed84-5580-4c32-8ad1-5407e6b15836")
+		)
+		(instances
+			(project "mic"
+				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -10712,7 +11113,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 180.0352 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -10745,7 +11146,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 179.07 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -10803,7 +11204,7 @@
 				)
 			)
 		)
-		(property "Footprint" "INA826AID:SOIC127P599X175-8N"
+		(property "Footprint" "mic:SOIC127P599X175-8N"
 			(at 128.27 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -11096,7 +11497,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Crystal:Crystal_C26-LF_D2.1mm_L6.5mm_Vertical"
+		(property "Footprint" "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm"
 			(at 236.22 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -11129,7 +11530,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C326537"
+		(property "LCSC" "C112573"
 			(at 236.22 85.09 90)
 			(hide yes)
 			(show_name no)
@@ -11186,7 +11587,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 143.51 79.7052 0)
 			(hide yes)
 			(show_name no)
@@ -11210,6 +11611,17 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 147.32 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19666"
+			(at 143.51 79.7052 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11267,7 +11679,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 186.3852 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -11300,7 +11712,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620730"
+		(property "LCSC" "C19702"
 			(at 185.42 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -11549,6 +11961,17 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 69.85 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2917798"
 			(at 69.85 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -11844,7 +12267,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 165.862 121.92 90)
 			(hide yes)
 			(show_name no)
@@ -11868,6 +12291,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 167.64 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23186"
+			(at 165.862 121.92 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12003,7 +12437,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 238.4552 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -12036,7 +12470,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 237.49 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -12329,7 +12763,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 79.502 100.33 90)
 			(hide yes)
 			(show_name no)
@@ -12353,6 +12787,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 81.28 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25803"
+			(at 79.502 100.33 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12645,7 +13090,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "AOM-5024L-HD-F-R:MIC_AOM-5024L-HD-F-R"
+		(property "Footprint" "mic:MIC_AOM-5024L-HD-F-R"
 			(at 52.07 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -12812,6 +13257,17 @@
 				(justify bottom)
 			)
 		)
+		(property "LCSC" "C3273730"
+			(at 52.07 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "P"
 			(uuid "f26d6e86-cbf9-499e-bedb-c419fcfc622c")
 		)
@@ -12861,7 +13317,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.4752 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -12894,7 +13350,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620210"
+		(property "LCSC" "C149620"
 			(at 143.51 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -12953,7 +13409,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 230.8352 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -12986,7 +13442,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620730"
+		(property "LCSC" "C19702"
 			(at 229.87 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -13046,7 +13502,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x10"
 			(at 265.1252 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -13079,7 +13535,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1579341"
+		(property "LCSC" "C2858857"
 			(at 264.16 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -13100,6 +13556,99 @@
 			(project "mic"
 				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
 					(reference "C12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 104.14 138.43 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c36728d6-dd28-4284-a354-29879926389f")
+		(property "Reference" "C20"
+			(at 107.95 137.1599 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 107.95 139.6999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 105.1052 142.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 104.14 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C149620"
+			(at 104.14 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7ef56b39-87b6-4759-95d6-7651afe3582d")
+		)
+		(pin "2"
+			(uuid "afe9cb78-58fa-4186-9b8f-c14691676804")
+		)
+		(instances
+			(project "mic"
+				(path "/919b0f5d-2298-4bbc-85a8-bc826e29eccc"
+					(reference "C20")
 					(unit 1)
 				)
 			)
@@ -13684,7 +14233,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 173.482 121.92 90)
 			(hide yes)
 			(show_name no)
@@ -13708,6 +14257,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 175.26 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23186"
+			(at 173.482 121.92 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13922,7 +14482,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -13955,7 +14515,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 260.35 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -14090,7 +14650,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PCM2902C:SOP65P780X200-28N"
+		(property "Footprint" "mic:SOP65P780X200-28N"
 			(at 205.74 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -14195,6 +14755,17 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+			)
+		)
+		(property "LCSC" "C2651869"
+			(at 205.74 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(pin "6"
@@ -14850,7 +15421,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 37.7952 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -14883,7 +15454,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620730"
+		(property "LCSC" "C19702"
 			(at 36.83 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -14941,7 +15512,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 73.66 77.7748 0)
 			(hide yes)
 			(show_name no)
@@ -14974,7 +15545,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 69.85 78.74 90)
 			(hide yes)
 			(show_name no)
@@ -15218,7 +15789,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.4mm_W2.1mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 66.04 130.5052 0)
 			(hide yes)
 			(show_name no)
@@ -15251,7 +15822,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1620326"
+		(property "LCSC" "C15849"
 			(at 69.85 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -15545,7 +16116,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 226.822 85.09 90)
 			(hide yes)
 			(show_name no)
@@ -15569,6 +16140,17 @@
 		)
 		(property "Description" "Resistor"
 			(at 228.6 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22935"
+			(at 226.822 85.09 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

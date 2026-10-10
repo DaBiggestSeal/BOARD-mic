@@ -1,14 +1,27 @@
-# Design Review — `mic` (USB-C microphone + 3.5 mm headphone monitor)
+# Design Review — `mic` SMD board (USB-C microphone + 3.5 mm headphone monitor + mute)
 
-Reviewed: `mic.kicad_sch` / `mic.kicad_pcb` on branch `v2_design`, after the schematic changes for the bias filter, codec input resistor and USB protection. KiCad 10.0.6. Last updated 2026-10-09.
-Only one KiCad project exists in this folder. `main` has its own `review.md`, which doesn't include the v2 jack change (J1 = PJ-3920-3A, footprint in the project library `mic.pretty`).
+Reviewed: `mic.kicad_sch` / `mic.kicad_pcb` on branch `smd` (working copy, 2026-10-11, re-checked after the 01:07 save). KiCad 10.0.6.
+This replaces the THT-board review that was copied over from `v2_design`.
 
-**Method:** exported the netlist with `kicad-cli` and traced every net by hand. Ran ERC, DRC and the DRC schematic-parity check. Checked pinouts, reference circuits and limits against the TI datasheets (PCM2900C/2902C SBFS039, TS5A3159A SCDS200F, INA826 SBOS562), the PUI AOM-5024L-HD-R specs, and the LCSC listings for every part that has an LCSC number.
+**Method:**
+- Exported the netlist with `kicad-cli` and traced every pin of every part.
+- Ran ERC, DRC and the schematic-parity check.
+- Measured placement, decoupling distances and routing with KiCad's Python API.
+- Checked every chip against its current datasheet:
+  - TI PCM2900C/2902C (SBFS039), including the typical-circuit figures 36–39
+  - TI INA826 (SBOS562G)
+  - TI TS5A3159A (SCDS200F)
+  - TI TLV700xx
+  - Nexperia 74LVC1G74 (rev. 18)
+- Checked every LCSC code against LCSC's live product data.
 
-**Tool results:**
-- **ERC:** 0 errors, 6 warnings, all about the AOM-5024L / INA826 / PCM2902C symbols not being registered in the library tables (harmless).
-- **DRC:** ✅ clean apart from the U1 ↔ MK2 overlap, which is ignored because the capsule is mounted off-board. 0 unconnected.
-- **Schematic ↔ PCB:** ✅ in sync (0 footprint/symbol mismatches).
+**Tool results (latest run):**
+- **ERC:** 0 errors, 3 warnings. The AOM-5024L, INA826 and PCM2902C symbol libraries aren't registered. This is harmless because the symbols are embedded.
+- **DRC:** 0 errors, 0 unconnected. The MK2 courtyard overlaps are excluded on purpose, because the capsule is wired off-board.
+- **Schematic ↔ PCB:** in sync. One expected note: J2 pin A8 has no pad, because the custom `…_NoA8` footprint removes it on purpose (SBU1 is unused).
+- **Netlist:** identical to the previous review apart from C20, so every pin trace and datasheet check below still holds.
+
+> **Applies to `v2_design` too:** the THT board uses the same schematic, so issues 1 and 2 apply there as well. Issue 1 is fixed only on `smd` so far.
 
 ---
 
@@ -16,107 +29,138 @@ Only one KiCad project exists in this folder. `main` has its own `review.md`, wh
 
 | # | Severity | Issue | Status |
 |---|---|---|---|
-| 1 | 🟢 Minor | Part-fit checks for school parts, silkscreen, library warnings | ❌ Open |
+| 1 | 🔴 Critical | No 1.5 kΩ pull-up on D+, so the PC would never detect the device | ✅ Fixed (R9) |
+| 2 | 🟠 High | Headphone jack is driven straight from the codec's DAC, which needs a load of ≥ 10 kΩ | ⏸️ Deferred |
+| 3 | 🟢 Low | U6 (mute flip-flop) had no local decoupling cap | ✅ Fixed (C20) |
+| 4 | 🟢 Low | Crystal under the preamp and long gain-pot tracks could add a little noise | 👂 Listen on first build |
+| 5 | 🟢 Minor | Small items (decoupling distance, crystal caps, stock, assembly) | ✅ Accepted |
 
 ---
 
-## What changed on the PCB (for reference)
+## ✅ 1. D+ pull-up: fixed
 
-The bias filter, codec input resistor, VBUS filter and USB ESD protection are placed and routed. **All passives are through-hole** and use the footprints already on the board: `R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical` for resistors and `C_Disc_D3.4mm_W2.1mm_P2.50mm` for capacitors. Only the chips are SMD; U5 is a SOT-23-6.
+A full-speed USB device signals that it's connected with a 1.5 kΩ pull-up on D+. The PCM2902C has no internal pull-up: TI's typical circuits all show one external 1.5 kΩ from VDDI (pin 27) to D+. The earlier THT review was wrong to call it internal.
 
-| Part | Where | Notes |
-|---|---|---|
-| **U5** USBLC6-2SC6 (SMD) | Bottom side, above J2 at (81.0, 89.75) mm | D− runs up the bottom layer and D+ up the top layer (via near U5) from R8/R7's connector-side pads. VBUS comes from C17's +5V pad, and GND goes through a via under the chip. |
-| **R16** 2.2 Ω | At (81.0, 106.0–108.5) mm, next to J2's +5V entry | Feeds a dedicated filtered-VBUS track. That track runs on the bottom layer beside R12, goes to the top layer through a via above C16, and ends at C19 and U3 pin 3. |
-| **C19** 1 µF | At (93.33–95.83, 102.35) mm, just below U3 | Connected to U3 pin 3's via. VCCCI (U3 pin 10 → C4) now runs on the bottom layer between C19's pads. |
-| **R15** 1 kΩ | At (85.0, 83.5–86.0) mm, above C9 | C10 → R15 runs on the top layer between C9's pads. R15 → VINL runs on the top layer past C17 to a via onto U3 pins 12/13. |
-| **R14** 1 kΩ | At (98.5–101.0, 106.0) mm, inline in the +3.3 V track | Everything after R14 (the long track up to R1) is now the mic-bias node (`Net-(C18-Pad1)`). |
-| **C18** 10 µF | **C3's old spot**, next to R1 | Changed from 47 µF electrolytic to a 10 µF ceramic disc. Filter corner ≈ 16 Hz, still below the audio band. |
-| **U6** 74LVC1G74DP (SMD, TSSOP-8) | Top side at (84, 113) mm, left of SW1 | **Toggle-mute flip-flop** (see below). |
-| **R18** 100 kΩ + **C22** 1 µF | R18 left of U6, C22 right of the +5V track | Power-on reset, so the mic always starts **live** when plugged in. |
-| **C21** 100 nF | Next to SW1/R2 at (93–95.5, 113) mm | Button debounce, together with R2 (now 100 kΩ). |
-| **C3** 1 µF | **Moved next to U4** (the LDO), fed from U4's output via | It was ~25 mm from the LDO before. An LDO output cap belongs at the LDO, so this is an improvement. |
+**Fix in place:**
+- **Part:** **R9**, 1.5 kΩ 0603, **LCSC C22843**, on the bottom side near U3 at (150.25, 102.0).
+- **Wiring:** from `Net-(U3-VDDI)` (U3 pin 27 / C8) to `Net-(U3-D+)` (U3 pin 1 / R7).
+- **Placement:** TI draws it on the connector side of the 22 Ω resistor, and here it's on the chip side. That makes no practical difference, since 22 Ω is negligible next to 1.5 kΩ.
+- **Checks:** routed, with DRC clean and 0 unconnected.
 
-**Toggle mute (SW1).** SW1 was originally push-to-talk: the mic was only live while the button was held. It now toggles: press once to mute, press again to unmute.
-- **How it works:** SW1 → `Net-(U6-C)` (debounced by C21 + R2) clocks a 74LVC1G74 flip-flop (U6). Its Q̅ output is fed back to D, so every press flips the state. The Schmitt-trigger inputs stop button bounce from double-triggering.
-- **What Q̅ drives:** the `Net-(U6-D)` net (formerly labelled `MIC_ON`), which goes to U1's control pin (high = mic connected) and the LED through R3. **LED on = live, LED off = muted.**
-- **Reset:** R18/C22 hold U6's CLR̅ low for ~100 ms at power-up, so it always starts live.
-- **Decoupling:** U6's supply is decoupled by the existing C2, right next to it, so no extra cap was added.
-- **Routing:** U1's long control track now ends at R3 instead of R2. `MIC_ON` from U6 runs on the bottom layer to R3, and SW1's track goes to R2/C21.
+## ⏸️ 2. Headphone output: deferred
 
-Other routing changes made to fit these:
-- **+3.3 V under U3** (U3 pins 8/9 → U4/R14) now runs straight down between C16's pads instead of diagonally.
-- **The +5V track that used to pass through U3 pin 3's via** now goes around it to U2 pin 8. That via now carries only the filtered VBUS.
-- **C16 moved 0.1 mm left** to make room for C19.
-- **Ground stitching vias** (0.6 mm / 0.3 mm drill) tie the top and bottom ground pours together everywhere. There are 86 of mine: 38 on a ~3 mm grid across the board, plus 48 on a 2 mm grid under the pot (RV1), close around the headphone jack (J1) and around the USB +5V entry / C2 / U4 / R16. With your own 22 ground vias between U3 and J1, that makes 108. This includes the small patches that were previously joined only through one pad (around C16, R12/J2's shell and U5).
-- Your own track tidy-ups around U5/C17 (21:27 save) are kept.
+U3's VOUTL/VOUTR go through C11/C12 (470 µF) straight to J1.
 
-## 🟢 1. Minor items
+- The datasheet's DAC spec is **load impedance ≥ 10 kΩ (AC coupled)**, and TI's reference circuits all put an "LPF, Amp" block after the outputs.
+- **Headphones (16–300 Ω):** volume will be very low with heavy distortion on peaks.
+- **What still works:**
+  - High-impedance phones (250–600 Ω) will be quiet but listenable.
+  - A line input (powered speakers, a mixer) will work properly.
 
-- **Sourcing / BOM:** most resistors and capacitors will be borrowed from school, so they don't need LCSC codes. Chips and connectors, checked against LCSC on 2026-10-09:
+**If you come back to it:**
+- **a) Headphone amp.**
+  - **Part:** **TI TPA6111A2DR** (SOIC-8, hand-solderable, **LCSC C497472**).
+  - **Why it fits:** it runs from 5 V and drives 16/32 Ω loads single-ended, so your existing C11/C12 become its output caps.
+  - **Extra parts:** input caps, the Ri/Rf gain resistors and a bypass cap, from its datasheet's typical circuit. Tie SHUTDOWN to GND, or drive it from U3's SSPND̅ (pin 28) so it mutes during USB suspend.
+- **b) Line out.** Relabel J1 as "line out". C11/C12 can then be much smaller (1–10 µF).
 
-  | Part | LCSC | Status |
-  |---|---|---|
-  | U1 TS5A3159ADBVR | C128405 | ✅ correct, in stock |
-  | U2 INA826AID | C2868853 | ✅ correct, in stock |
-  | U3 PCM2902C | — | ✅ no code (sourced elsewhere) |
-  | U4 TLV70033 (LDO) | — | ✅ no code (sourced elsewhere) |
-  | U5 USBLC6-2SC6 | C7519 | ✅ correct, in stock |
-  | J1 PJ-3920-3A | C707259 | ✅ correct |
-  | J2 GT-USB-7051A | C2843970 | ✅ correct, in stock |
-  | MK2 capsule | — | sourced elsewhere, no code |
-  | U6 74LVC1G74DP | C458768 | ✅ correct, in stock (160) |
-  | RV1 Alps RK097111080R | C470577 | ✅ in stock; same as the original RK097 but with a 20 mm shaft |
-  | SW1 | C285524 | ⚠️ out of stock. Alps SKHHLQA010 (C125034, 1 N) or SKHHLPA010 (C139763, 2.6 N) fit the same footprint |
-- **School parts vs. footprints:**
-  - **Resistors:** they mount standing, with 2.54 mm hole spacing. Check that 1/4 W bodies don't touch their neighbours around R14/R15/R16.
-  - **10 µF caps (C4, C9, C18):** if you use electrolytics instead of ceramics, the footprint shows no "+". Fit + to C4 pad 2 (VCCCI), C9 pad 1 (VCOM) and C18 pad 1 (MIC_BIAS), and use 5 mm cans with 2.5 mm lead spacing.
-  - **Y1:** ⏸️ accepted. The crystal's legs will be bent to fit the C26-LF footprint, because no crystal with the right specs and footprint could be found. For CL = 18 pF, 27 pF is the ideal value for C13/C14; 22 pF still works.
-- **Capacitor parts (if ordered rather than borrowed):**
-  - **C4, C9, C18 (10 µF):** C1620730, Murata RDEC71H106K3S1H03A, 10 µF 50 V X7S. It's a ceramic, so it isn't polarized, it uses 2.5 mm lead spacing, and it fits the C_Disc footprint. No electrolytic is needed.
-  - **C11, C12 (470 µF):** C1579341, Nichicon UHE1A471MPD1TD, 10 V, 8 mm can, 3.5 mm lead spacing. These are the only polarized caps; + goes to the codec side.
-  - **C19 (1 µF):** C1620326, the same Murata disc as C5–C8. Low stock (34) at the time of checking.
-- **Silkscreen:** a few new reference labels sit close to or touch other labels or pads (a few more `silk_overlap`/`silk_over_copper` notes than before). Your project ignores silkscreen DRC, but nudge them in KiCad if you want the printed labels clean.
-- **MK2:** the capsule is mounted off-board on wires ✅. Use a short **shielded** cable (signal on the core, GND on the shield), because the capsule signal is weak and high-impedance and picks up hum easily.
-- **RV1 taper:** with a linear pot, most of the gain change happens in the first part of the rotation. That's acceptable. A reverse-log (C) taper would give more even control.
-- **Library warnings:** `AOM-5024L-HD-F-R`, `INA826AID` and `PCM2902C` aren't registered in your KiCad libraries, which causes the 6 ERC warnings. It's harmless because the symbols and footprints are embedded in the project.
-- **THT ceramics at 4.7–10 µF** on `C_Disc_D3.4mm` footprints: check that the parts you buy (C4, C9, C10, C15) actually fit a 3.4 mm disc at 2.5 mm pitch.
+## ✅ 3. U6 decoupling: fixed (C20)
+
+On the THT board, C2 sat next to U6. In the SMD layout, it's about 18 mm away, next to U4.
+
+**How big a problem is this?** It's a low risk:
+- U6 only switches when the button is pressed.
+- Its loads are tiny: the LED at about 3 mA and U1's control input.
+- The clock input has a Schmitt trigger plus the R2/C21 debounce.
+
+It would very likely work without the cap. Adding it is cheap insurance against a rare random mute toggle when the USB load changes.
+
+**Why placement matters, despite the GND pour:**
+- The cap's current flows in a loop through both +5V and GND. The pour makes the GND half short wherever the cap sits.
+- The **+5V half** is still the 18 mm track from C2, and only a cap close to pin 8 shortens it.
+- C21 (debounce) and C22 (reset timing) can't do this job, because neither is connected between VCC and GND.
+
+**Fix in place:**
+- **Part:** **C20**, 100 nF 0603, **LCSC C149620**, the same part as C16/C17/C21.
+- **Wiring:** between +5V and GND.
+- **Placement:** top side at (131.25, 113.25), next to U6. Its +5V pad is **3.1 mm from U6 pin 8**, and a GND via sits within 2 mm of its ground pad. ✅
+
+## 👂 4. Noise risks around the preamp: listen on the first build
+
+These won't stop the board from working. At worst you'd get faint hiss or whine at very high gain.
+
+- **Crystal:** Y1 (12 MHz, bottom side) sits directly under U2, the INA826 running at up to 106× gain on the top side. 12 MHz is far above the audio band, and the INA826 has a built-in input RFI filter, so trouble would need that signal to leak in and be turned into audible noise. That's unlikely here.
+- **Gain-pot tracks:** `Net-(U2-RG_3)` is about 23 mm and `Net-(R4-Pad1)` about 12 mm, running from U2 to RV1. Noise picked up there gets amplified. The nearby `MIC_ON` track only changes when the button is pressed, so the worst case is a faint click on toggle.
+- **If you do hear noise:** run with a little less gain, or add GND stitching along both sides of the RG tracks. Neither needs a new board.
+
+## ✅ 5. Minor items: accepted
+
+- **Decoupling distance:** C6 (VCCP2I, about 5.8 mm of track) and C7 (VCCXI, about 6.8 mm) are farther from U3 than ideal. C4/C9/C5/C8 are all within 2–3 mm.
+- **Crystal load caps:** Y1 has CL = 20 pF. With 22 pF caps the effective load is about 15 pF, so it runs a few tens of ppm fast, well inside the PCM2902C's ±500 ppm. The ideal value is 33 pF C0G. R10 = 1 MΩ matches TI.
+- **Stock (LCSC, 2026-10-11):** U3 PCM2902CDBR (C2651869) has only 3 in stock, and MK2 (C3273730) has none. Buy both elsewhere, as planned.
+- **Double-sided SMD:** U3, U5, Y1, J2 and most of the codec parts are on the bottom. That's fine for hand soldering, but JLCPCB assembly charges extra for two-sided placement.
+- **J2 parity note:** this comes from the modified footprint and is expected. Don't route anything under the physical A8 pin.
+- **Ceramic caps in the audio path:** C1 and C10 are X5R. They add a little distortion, which is fine for a voice mic.
+- **0603 10 µF caps (C4/C9/C18) are rated 10 V:** they see ≤ 3.7 V. ✅
+- **MK2:** use a short shielded cable, with signal on the core and GND on the shield.
+- **Library warnings:** register or embed the three symbol libraries if you want ERC fully clean.
 
 ---
 
 ## Verified correct ✅
 
 - **PCM2902C (U3)**:
-  - Pinout matches SBFS039 (SSOP-28 DB, footprint `SOP65P780X200-28N`).
-  - SEL0/SEL1 must be high. They are tied to +3.3 V: VIH min is 2 V and the pins are 5 V tolerant.
-  - HID0–2 and DIN are grounded. DOUT and SSPND are left open.
-  - The D+ pull-up is internal, so no external 1.5 kΩ is needed. R7/R8 = 22 Ω match TI.
-  - Decoupling matches TI's notes: VCCCI 10 µF (C4), VCOM 10 µF (C9), and VCCP1I/VCCP2I/VCCXI/VDDI 1 µF each (C5–C8), all within TI's "must be less than 2 µF" limit.
-  - The mono mic is fed into both VINL and VINR.
-  - VOUTL goes to Tip (via C11) and VOUTR to Ring (via C12), which is the correct mapping.
+  - **Pinout:** matches the SSOP-28 pinout, pins 1–28. The footprint is `mic:SOP65P780X200-28N`, on the bottom side.
+  - **SEL0/SEL1:** tied to +3.3 V. They must be high, and they're 5 V tolerant with VIH 2 V.
+  - **TEST0 (DIN):** grounded. TEST1 (DOUT) and SSPND̅ are left open. HID0–2 are grounded; they have internal pull-downs, so that's fine.
+  - **Internal supply pins:** VCCCI, VCCP1I, VCCP2I, VCCXI and VDDI are only decoupled, never driven.
+  - **Decoupling values:** VCCCI and VCOM 10 µF. VCCP1I/VCCP2I/VCCXI/VDDI 1 µF each, inside TI's "< 2 µF" limit.
+  - **VBUS pin:** +5V → R16 2.2 Ω → pin 3 with C19 1 µF, exactly as TI shows.
+  - **USB lines:** 22 Ω series resistors (R7/R8) within about 2–3 mm of the pins, and the D+ pull-up R9 1.5 kΩ to VDDI.
+  - **Crystal:** 12 MHz between XTI (21) and XTO (20) with R10 1 MΩ and two load caps.
+  - **Mic input:** the mono mic feeds VINL and VINR together through C10 and R15 1 kΩ. The input impedance is 30 kΩ, so the high-pass corner is about 1 Hz.
 - **INA826 (U2)**:
-  - Pinout matches: −IN=1, RG=2/3, +IN=4, −VS=5, REF=6, VOUT=7, +VS=8.
-  - G = 1 + 49.4 kΩ / (R4 + RV1) = 5.7 to 106 (15 to 40.5 dB), a good range for speech.
-  - A single 5 V supply is allowed, and the input range includes V−, so −IN = GND works.
-  - +IN has a DC return through R11.
-  - REF = 2.5 V from R5/R6, bypassed by C15 = 4.7 µF.
-- **TS5A3159A (U1)**: pinout and logic verified.
-- **R3 / D1**: R3 = 1 kΩ gives about 3 mA through the LED. ✅
-- **TLV70033 (U4)**: pinout IN=1, GND=2, EN=3, NC=4, OUT=5. EN is tied to VIN. Input and output caps are 1 µF each.
-- **AOM-5024L-HD-R (MK2)**: rated 3 V (2–10 V range). C1 = 1 µF into 10 kΩ gives a 16 Hz corner.
-- **Mic-bias filter**: +3.3 V → R14 1 kΩ → the mic-bias node (`Net-(C18-Pad1)`) (C18 10 µF to GND) → R1 1.2 kΩ → MK2. The total of about 2.2 kΩ matches the manufacturer's load resistor, so the operating point is unchanged. R14/C18 low-pass at about 16 Hz, which removes LDO noise from the audio band.
-- **Switch pop fix**: U1 pin 3 (NC) is tied to GND, so C1 stays charged while muted.
-- **Toggle mute**: SW1 → debounce (C21, R2) → 74LVC1G74 (U6) with Q̅ fed back to D. Q̅ = `MIC_ON` drives U1's control pin and the LED. Power-on reset (R18/C22) starts it live. Pinout checked against the Nexperia datasheet: 1 CP, 2 D, 3 Q̅, 4 GND, 5 Q, 6 R̅D, 7 S̅D, 8 VCC.
-- **USB-C (J2)**:
-  - CC1 and CC2 each have their own 5.1 kΩ to GND.
-  - A6/B6 and A7/B7 are paired correctly.
-  - SBU pins are unconnected.
-  - The footprint matches the GT-USB-7051A, a vertical receptacle.
-- **J1 (Korean Hroparts PJ-3920-3A, LCSC C707259)**: stereo TRS jack with no switch contacts. The footprint is `mic:Jack_3.5mm_KoreanHropartsElec_PJ-3920-3A_Vertical`. Wiring: S → GND, T → C11 (left), R → C12 (right). Confirm the S/T/R pin assignment on a real part with a continuity tester before soldering a batch.
-- **C10 + R15**: C10 (4.7 µF) → R15 (1 kΩ) → VINL/VINR. R15 limits any overdrive current into the codec's protection diodes to well under 1 mA, and the level loss is only about 0.6 dB. The high-pass corner is about 2.1 Hz.
-- **PCM2902C VBUS**: +5V → R16 2.2 Ω → U3 pin 3, with C19 1 µF to GND, as in TI's reference circuit.
-- **USB ESD (U5, USBLC6-2SC6)**: I/O1 (pins 1, 6) is on `USB_DP`, I/O2 (pins 3, 4) is on `USB_DM`, both on the connector side of R7/R8. VBUS (pin 5) goes to +5V and GND (pin 2) goes to GND. The CC1/CC2 nets are unaffected.
+  - **Pinout:** −IN 1, RG 2/3, +IN 4, −VS 5, REF 6, VOUT 7, +VS 8.
+  - **Gain:** G = 1 + 49.4 kΩ / RG. RG = R4 470 Ω + RV1 0–10 kΩ, so G = 5.7 to 106 (15–40.5 dB).
+  - **Input range:** −IN = GND on a 5 V single supply works. The input range includes V−, and datasheet figure 12 (5 V, REF 2.5 V, G 100) shows the output can swing about 0.3–4.7 V with the inputs at ground.
+  - **REF:** 2.5 V from R5/R6, bypassed by C15 4.7 µF.
+  - **+IN:** has a DC return through R11 10 kΩ.
+- **Signal levels:** the capsule is −24 dB re 1 V/Pa, about 63 mV/Pa.
+  - Normal speech: max gain gives near full scale on the codec (about 2 Vpp).
+  - Loud sources: turn the gain down. At minimum gain, about 106 dB SPL reaches full scale.
+- **Mic bias:** +3.3 V → R14 1 kΩ → C18 10 µF → R1 1.2 kΩ → MK2. That's about 2.2 kΩ total, matching the capsule's load resistor. The capsule sees ≥ 2.2 V, and its range is 2–10 V. R14/C18 low-pass at about 16 Hz, and C1/R11 give a 16 Hz high-pass.
+- **TS5A3159A (U1)**:
+  - **Pinout:** NO 1, GND 2, NC 3, COM 4, V+ 5, IN 6.
+  - **Logic:** IN high connects COM to NO (live). IN low connects COM to NC, which is GND (muted, and C1 stays charged, so there's no pop).
+- **Mute toggle (U6, 74LVC1G74)**:
+  - **Pinout:** CP 1, D 2, Q̅ 3, GND 4, Q 5, R̅D 6, S̅D 7, VCC 8.
+  - **Decoupling:** C20 100 nF, 3.1 mm from VCC.
+  - **Toggling:** Q̅ is fed back to D, so every rising clock edge flips the state.
+  - **Debounce:** R2 100 kΩ and C21 100 nF (τ = 10 ms).
+  - **Power-on:** R18 100 kΩ / C22 1 µF (τ ≈ 100 ms) mean it always starts **live**. S̅D is tied high.
+  - **Output:** Q̅ drives U1's IN and the LED.
+- **LED (D1):** R3 1 kΩ from a 5 V logic output gives about 3 mA. L-204SRD (red, 1.8 mm, THT).
+- **TLV70033 (U4):**
+  - **Pinout:** IN 1, GND 2, EN 3, NC 4, OUT 5. EN is tied to IN.
+  - **Caps:** C2 1 µF on the input and C3 1 µF on the output, which meet the stability requirement. C3 is 1.6 mm from OUT.
+- **USB-C (J2, GT-USB-7051A vertical, LCSC C2843970)**:
+  - **CC pins:** CC1 and CC2 each have their own 5.1 kΩ to GND (R13/R12).
+  - **Data pins:** A6/B6 and A7/B7 are paired.
+  - **VBUS and shield:** all VBUS pins are on +5V, and the shield is on GND.
+  - **Orientation:** the connector is vertical and USB-C is reversible, so its rotation doesn't matter.
+- **USB ESD (U5, USBLC6-2SC6)**:
+  - **Pins:** I/O1 (pins 1, 6) on `USB_DP`, I/O2 (pins 3, 4) on `USB_DM`, VBUS on pin 5, GND on pin 2.
+  - **Placement:** between J2 and R7/R8.
+  - **Routing:** D+ and D− are 9.7 / 9.6 mm long, which is matched. D− uses 3 vias, which is fine at 12 Mbit/s.
+- **VBUS capacitance:** about 2.3 µF total, under the USB 10 µF inrush limit.
+- **Output caps C11/C12 (470 µF 16 V):** the + side is on the codec (DC ≈ 1.65 V), which is the correct polarity.
+- **Jack wiring (J1, PJ-3920-3A):** S → GND, T → left, R → right. Confirm with a continuity tester on a real part.
+- **Power tracks:** +5V is 0.5 mm, and everything else is 0.2 mm.
+- **GND:** both layers are poured, and stitched with GND vias on a 2.5 mm grid. One 0.5/0.3 via ties U3 pin 18 (AGNDP) to the main ground.
+- **LCSC codes:** every placed part has one, checked against LCSC on 2026-10-10/11.
 
-## Suggested fix order
+## Next steps
 
-1. **Silkscreen (optional):** tidy the reference labels around the new parts.
+1. **Port R9 (and a U6 decoupling cap) to `v2_design`** if you'll ever build the THT board (issue 1).
+2. **Build and listen** at max gain for noise (issue 4).
+3. **Headphone output:** decide later (issue 2).
