@@ -32,7 +32,17 @@ The bias filter, codec input resistor, VBUS filter and USB ESD protection are pl
 | **R15** 1 kΩ | At (85.0, 83.5–86.0) mm, above C9 | C10 → R15 runs on the top layer between C9's pads. R15 → VINL runs on the top layer past C17 to a via onto U3 pins 12/13. |
 | **R14** 1 kΩ | At (98.5–101.0, 106.0) mm, inline in the +3.3 V track | Everything after R14 (the long track up to R1) is now the mic-bias node (`Net-(C18-Pad1)`). |
 | **C18** 10 µF | **C3's old spot**, next to R1 | Changed from 47 µF electrolytic to a 10 µF ceramic disc. Filter corner ≈ 16 Hz, still below the audio band. |
+| **U6** 74LVC1G74DP (SMD, TSSOP-8) | Top side at (84, 113) mm, left of SW1 | **Toggle-mute flip-flop** (see below). |
+| **R18** 100 kΩ + **C22** 1 µF | R18 left of U6, C22 right of the +5V track | Power-on reset, so the mic always starts **live** when plugged in. |
+| **C21** 100 nF | Next to SW1/R2 at (93–95.5, 113) mm | Button debounce, together with R2 (now 100 kΩ). |
 | **C3** 1 µF | **Moved next to U4** (the LDO), fed from U4's output via | It was ~25 mm from the LDO before. An LDO output cap belongs at the LDO, so this is an improvement. |
+
+**Toggle mute (SW1).** SW1 was originally push-to-talk: the mic was only live while the button was held. It now toggles: press once to mute, press again to unmute.
+- **How it works:** SW1 → `Net-(U6-C)` (debounced by C21 + R2) clocks a 74LVC1G74 flip-flop (U6). Its Q̅ output is fed back to D, so every press flips the state. The Schmitt-trigger inputs stop button bounce from double-triggering.
+- **What Q̅ drives:** the `Net-(U6-D)` net (formerly labelled `MIC_ON`), which goes to U1's control pin (high = mic connected) and the LED through R3. **LED on = live, LED off = muted.**
+- **Reset:** R18/C22 hold U6's CLR̅ low for ~100 ms at power-up, so it always starts live.
+- **Decoupling:** U6's supply is decoupled by the existing C2, right next to it, so no extra cap was added.
+- **Routing:** U1's long control track now ends at R3 instead of R2. `MIC_ON` from U6 runs on the bottom layer to R3, and SW1's track goes to R2/C21.
 
 Other routing changes made to fit these:
 - **+3.3 V under U3** (U3 pins 8/9 → U4/R14) now runs straight down between C16's pads instead of diagonally.
@@ -55,7 +65,9 @@ Other routing changes made to fit these:
   | J1 PJ-3920-3A | C707259 | ✅ correct |
   | J2 GT-USB-7051A | C2843970 | ✅ correct, in stock |
   | MK2 capsule | — | sourced elsewhere, no code |
-  | RV1 | C97444 | ⚠️ out of stock at LCSC |
+  | U6 74LVC1G74DP | C458768 | ✅ correct, in stock (160) |
+  | RV1 Alps RK097111080R | C470577 | ✅ in stock; same as the original RK097 but with a 20 mm shaft |
+  | SW1 | C285524 | ⚠️ out of stock. Alps SKHHLQA010 (C125034, 1 N) or SKHHLPA010 (C139763, 2.6 N) fit the same footprint |
 - **School parts vs. footprints:**
   - **Resistors:** they mount standing, with 2.54 mm hole spacing. Check that 1/4 W bodies don't touch their neighbours around R14/R15/R16.
   - **10 µF caps (C4, C9, C18):** if you use electrolytics instead of ceramics, the footprint shows no "+". Fit + to C4 pad 2 (VCCCI), C9 pad 1 (VCOM) and C18 pad 1 (MIC_BIAS), and use 5 mm cans with 2.5 mm lead spacing.
@@ -94,6 +106,7 @@ Other routing changes made to fit these:
 - **AOM-5024L-HD-R (MK2)**: rated 3 V (2–10 V range). C1 = 1 µF into 10 kΩ gives a 16 Hz corner.
 - **Mic-bias filter**: +3.3 V → R14 1 kΩ → the mic-bias node (`Net-(C18-Pad1)`) (C18 10 µF to GND) → R1 1.2 kΩ → MK2. The total of about 2.2 kΩ matches the manufacturer's load resistor, so the operating point is unchanged. R14/C18 low-pass at about 16 Hz, which removes LDO noise from the audio band.
 - **Switch pop fix**: U1 pin 3 (NC) is tied to GND, so C1 stays charged while muted.
+- **Toggle mute**: SW1 → debounce (C21, R2) → 74LVC1G74 (U6) with Q̅ fed back to D. Q̅ = `MIC_ON` drives U1's control pin and the LED. Power-on reset (R18/C22) starts it live. Pinout checked against the Nexperia datasheet: 1 CP, 2 D, 3 Q̅, 4 GND, 5 Q, 6 R̅D, 7 S̅D, 8 VCC.
 - **USB-C (J2)**:
   - CC1 and CC2 each have their own 5.1 kΩ to GND.
   - A6/B6 and A7/B7 are paired correctly.
