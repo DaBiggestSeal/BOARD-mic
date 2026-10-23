@@ -52,8 +52,8 @@
         "zones": {
           "border_display_style": 2,
           "border_hatch_pitch": 0.5,
-          "corner_radius": 0.0,
-          "corner_smoothing": 0,
+          "corner_radius": 0.2,
+          "corner_smoothing": 2,
           "fill_mode": 0,
           "hatch_gap": 1.5,
           "hatch_orientation": 0.0,
@@ -76,16 +76,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "courtyards_overlap|153525000|82025000|0d407527-0b76-42c9-8cfc-bd667e4c45b5|24803cc9-8783-4fdd-aea7-61f9886cba00",
-          ""
-        ],
-        [
-          "courtyards_overlap|153525000|83525000|24803cc9-8783-4fdd-aea7-61f9886cba00|c75f8e9e-c37f-458b-96b8-dd4b903d284c",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
